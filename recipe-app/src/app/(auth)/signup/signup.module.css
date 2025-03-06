@@ -1,0 +1,45 @@
+.form{
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    height: 90vh;
+    width: 490px;
+    border-radius: 20px;
+  }
+  
+  
+  .upper-texts {    
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+  }
+  
+  .third-party-signin {
+    width: "90%";
+    display: flex;
+    justify-content: space-between;
+    img {
+      cursor: pointer;
+    }
+  }
+  
+  .text {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .forgot-password {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .name-phone {
+    margin-top: 7px;
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }

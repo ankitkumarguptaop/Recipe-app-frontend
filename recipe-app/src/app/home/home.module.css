@@ -1,0 +1,37 @@
+.searchContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  .searchInput {
+    width: 200px;
+  }
+  
+  .categorySelect {
+    width: 150px;
+  }
+  
+  .menuItem {
+    width: 150px;
+  }
+  
+  .createButton {
+    background-color: #1976d2;
+    color: white;
+  }
+  
+  .recipeContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  .recipeCard {
+    width: 300px;
+  }
+  
