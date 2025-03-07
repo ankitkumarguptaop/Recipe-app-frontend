@@ -12,13 +12,23 @@ import apple from "../../../assets/images/apple.png";
 import Image from "next/image";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useDispatch } from "react-redux";
+import { signInUser } from "@/features/auth/auth.action";
+import { Password } from "@mui/icons-material";
+import { redirect } from "next/navigation";
 
 const SignIn = () => {
   const formSchema = z.object({
-    Password: z.string().min(1, "Enter valid Password").regex(new RegExp(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/) ,"Enter valid Password"),
-    Email: z.string().email("Enter valid Email").min(1)
+    Password: z
+      .string()
+      .min(1, "Enter valid Password")
+      .regex(
+        new RegExp(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/),
+        "Enter valid Password"
+      ),
+    Email: z.string().email("Enter valid Email").min(1),
   });
-
+  const dispatch = useDispatch();
   const {
     control,
     getValues,
@@ -35,12 +45,11 @@ const SignIn = () => {
     },
   });
 
-  
-
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    console.log(isSubmitting);
+    dispatch(signInUser({ email: data.Email, password: data.Password }));
     reset();
+    redirect("/home");
   };
 
   return (

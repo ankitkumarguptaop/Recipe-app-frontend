@@ -9,7 +9,7 @@ const Input = ({
   feildName,
   pattern,
   errors,
-  getValues,
+
 }) => {
   return (
     <>

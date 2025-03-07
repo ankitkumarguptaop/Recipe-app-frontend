@@ -1,7 +1,9 @@
+'use client'
 import { createSlice } from "@reduxjs/toolkit";
 import { signInUser, signUpUser } from "./auth.action";
 
 import Cookies from "js-cookie";
+import {  redirect } from "next/navigation";
 
 const initialState = {
   currentUser: null,
@@ -18,6 +20,7 @@ export const authUserSlice = createSlice({
     },
     logout: (state, action) => {
       state.currentUser = null;
+      redirect('/');
     },
   },
   extraReducers: (builder) => {
@@ -36,18 +39,18 @@ export const authUserSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(signInUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.currentUser = action.payload.data;
-        Cookies.set("jwt", action.payload.data.token, {
+        state.currentUser = action.payload.data.user;
+        Cookies.set("jwt", action.payload.data.user.token, {
           expires: 7,
           secure: true,
         });
+        state.isLoading = false;
 
       })
       .addCase(signInUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
-      })
+      });
   },
 });
 
