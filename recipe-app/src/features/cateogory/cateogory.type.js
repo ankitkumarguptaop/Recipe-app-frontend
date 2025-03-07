@@ -1,1 +1,1 @@
-export const LIST_CATEOGORY = cateogories/LIST
+export const LIST_CATEOGORY = 'cateogories/LIST'

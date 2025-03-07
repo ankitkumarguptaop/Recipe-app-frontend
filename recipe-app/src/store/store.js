@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import authReducer from "../features/auth/auth.slice";
 import recipeReducer from "../features/recipe/recipe.slice"
-
+import cateogoryReducer from "../features/cateogory/cateogory.slice"
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 
@@ -20,6 +20,7 @@ export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     recipe: recipeReducer,
+    cateogory:cateogoryReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

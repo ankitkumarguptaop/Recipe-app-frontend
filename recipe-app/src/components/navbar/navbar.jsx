@@ -6,7 +6,7 @@ import { logout } from "@/features/auth/auth.slice";
 const Navbar = () => {
   const dispatch =useDispatch()
   const currentUser = useSelector((state) => state.auth.currentUser);
-console.log('✌️currentUesr --->', currentUser);
+  console.log('✌️currentUesr --->', currentUser);
 
   return (
     <AppBar position="static">

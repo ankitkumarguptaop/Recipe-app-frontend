@@ -11,10 +11,7 @@ import {
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useDispatch } from "react-redux";
-import { createRecipe } from "@/features/recipe/recipe.action";
-
-const categories = [1, "Lunch", "Dinner", "Dessert", "Snack"];
+import { useSelector } from "react-redux";
 
 const recipeSchema = z.object({
   name: z.string().min(3, "Name must be at least 3 characters"),
@@ -24,13 +21,14 @@ const recipeSchema = z.object({
 });
 
 const AddRecipeModal = ({ open, handleClose, handleSubmit }) => {
-
+  const categories = useSelector((state) => state.cateogory.cateogories);
   const {
+    control,
     register,
     handleSubmit: validateForm,
     setValue,
     formState: { errors },
-    reset
+    reset,
   } = useForm({
     resolver: zodResolver(recipeSchema),
   });
@@ -44,11 +42,8 @@ const AddRecipeModal = ({ open, handleClose, handleSubmit }) => {
 
   const onSubmit = (data) => {
     handleSubmit(data);
-    reset()
+    reset();
   };
-
-
- 
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -74,7 +69,7 @@ const AddRecipeModal = ({ open, handleClose, handleSubmit }) => {
             fullWidth
             label="Recipe Name"
             {...register("name")}
-            error={!!errors.name}
+            error={errors.name}
             helperText={errors.name?.message}
             margin="dense"
           />
@@ -82,29 +77,30 @@ const AddRecipeModal = ({ open, handleClose, handleSubmit }) => {
             fullWidth
             label="Description"
             {...register("description")}
-            error={!!errors.description}
+            error={errors.description}
             helperText={errors.description?.message}
             margin="dense"
             multiline
             rows={3}
           />
+
           <TextField
             fullWidth
             select
             label="Category"
             {...register("category")}
-            error={!!errors.category}
+            error={errors.category}
             helperText={errors.category?.message}
             margin="dense"
           >
-            {categories.map((cat) => (
-              <MenuItem key={cat} value={cat}>
-                {cat}
+            {categories.map((category) => (
+              <MenuItem control={control} key={category.id} value={category.id}>
+                {category.name}
               </MenuItem>
             ))}
           </TextField>
 
-          <Box variant="contained" component="label"  sx={{ my: 2 }}>
+          <Box variant="contained" component="label" sx={{ my: 2 }}>
             <input type="file" onChange={handleImageUpload} />
           </Box>
           {errors.image && (
@@ -112,7 +108,13 @@ const AddRecipeModal = ({ open, handleClose, handleSubmit }) => {
           )}
 
           <Box display="flex" justifyContent="space-between" mt={2}>
-            <Button variant="outlined" onClick={()=>{handleClose() ; reset()}}>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                handleClose();
+                reset();
+              }}
+            >
               Cancel
             </Button>
             <Button type="submit" variant="contained" color="primary">

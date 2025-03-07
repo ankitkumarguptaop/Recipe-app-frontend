@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export const cateogorySlice = createSlice({
-  name: "auth",
+  name: "cateogory",
   initialState,
   reducers: {
     removeError: (state, action) => {
@@ -22,7 +22,7 @@ export const cateogorySlice = createSlice({
         state.isLoading = true;
       })
       .addCase(listCateogory.fulfilled, (state, action) => {
-        state.cateogories = action.payload.data;
+        state.cateogories = action.payload.cateogories;
         state.isLoading = false;
       })
       .addCase(listCateogory.rejected, (state, action) => {
